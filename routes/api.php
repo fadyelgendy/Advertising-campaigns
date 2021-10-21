@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompainController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// Get Compains 
+Route::get("/compains", [CompainController::class, 'index']);
+Route::prefix('/compain')->group(function() {
+    Route::post("/store", [CompainController::class, 'store']);
+    Route::put("/{compain}", [CompainController::class, 'update']);
+    Route::delete("/{compain}", [CompainController::class, 'destroy']);
 });

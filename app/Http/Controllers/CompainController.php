@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Compain;
-use App\Models\CompainController;
+use App\Http\Services\CompainService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class CompainControllerController extends Controller
+class CompainController extends Controller
 {
+    protected $compainService;
+
+    public function __construct(CompainService $compainService)
+    {
+        $this->compainService = $compainService;    
+    }
+
     /**
      * Display a listing of the resource.
-     *
+     * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $compains = auth()->user()->compains();
+        $compains = $request->user()->compains;
 
         return response()
         ->json([
@@ -31,7 +38,27 @@ class CompainControllerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validdate request
+        $validator = Validator::make($request->compain, [
+            'name' => 'required',
+            'date_from' => 'required',
+            'date_to' => 'required',
+            'daily_budget' => 'required',
+        ]);
+
+        if (!$validator) {
+            return response()
+                ->json([
+                    "error" => $validator
+                ]);
+        }
+
+        $compain = $this->compainService->createCompain($request->compain);
+
+        return response()
+        ->json([
+            'compain' => $compain
+        ]);
     }
 
     /**
