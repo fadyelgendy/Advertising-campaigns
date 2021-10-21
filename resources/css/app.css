@@ -1,0 +1,110 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+:root {
+    --baseColor: #0E2F44;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Nunito", sans-serif;
+}
+
+header {
+    width: 100%;
+    padding: 5px 10px;
+    background-color: var(--baseColor);
+    color: #fff;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header ul li {
+    display: inline-block;
+    padding: 5px 10px;
+}
+
+header ul li:hover {
+    background-color: #fff;
+}
+
+header ul li > a:hover {
+    color: var(--baseColor);
+}
+
+header ul li > a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.container {
+    width: 95%;
+    max-width: 95%;
+    margin: auto;
+}
+
+.form-group {
+    padding: 5px 10px;
+    margin-top: 10px;
+}
+
+.form-group label {
+    display: block;
+}
+
+.form-control {
+    outline: none;
+    padding: 5px;
+    height: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.btn {
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: var(--baseColor);
+    color: #fff;
+    font-size: 16px;
+}
+
+.btn:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+h1 {
+    text-align: center;
+}
+
+div.login__form {
+    width: 300px;
+    margin:auto;
+}
+
+footer {
+    background-color: var(--baseColor);
+    width: 100%;
+    padding: 5px 10px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    color: #fff;
+}
