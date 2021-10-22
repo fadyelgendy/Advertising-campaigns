@@ -7,15 +7,16 @@ use App\Models\Compain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CompainService {
+class CompainService
+{
 
     /**
      * Create compain service
-     * 
+     *
      * @param Request $request
-     * @return Array 
+     * @return Array
      */
-    public function createCompain(Request $request) 
+    public function createCompain(Request $request)
     {
         $isValid = $this->validate($request, [
             'name' => 'required',
@@ -42,7 +43,7 @@ class CompainService {
 
         $newCompain->save();
 
-        return ['compain'=> $newCompain];
+        return ['compain' => $newCompain];
     }
 
     /**
@@ -70,7 +71,7 @@ class CompainService {
         if (isset($newCompain['creative_upload'])) {
             $compain->creative_upload = $newCompain['creative_upload'];
         }
-        
+
         // check for new date from
         if (isset($newCompain['date_from'])) {
             $isValid = $this->validate($request, ['date_from' => 'date|after_or_equal:today']);
@@ -119,7 +120,7 @@ class CompainService {
      * @param Array $compain
      * @return Double
      */
-    private function getTotalBudget(Array $compain)
+    private function getTotalBudget(array $compain)
     {
         $to = new DateTime($compain['date_to']);
         $from = new DateTime($compain['date_from']);
@@ -129,7 +130,7 @@ class CompainService {
 
 
     /**
-     * Validate compains data. 
+     * Validate compains data.
      *
      * @param Request $request
      * @param array $fieldRules
@@ -139,10 +140,10 @@ class CompainService {
     {
         $validator =  Validator::Make($request->compain, $fieldRules);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return ['errors' => $validator->errors()->getMessages()];
         }
-    
+
         return [ 'success' => true];
     }
 }

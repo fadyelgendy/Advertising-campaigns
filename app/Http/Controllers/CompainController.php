@@ -13,7 +13,7 @@ class CompainController extends Controller
 
     public function __construct(CompainService $compainService)
     {
-        $this->compainService = $compainService;    
+        $this->compainService = $compainService;
     }
 
     /**
@@ -34,7 +34,7 @@ class CompainController extends Controller
      */
     public function store(Request $request)
     {
-       return $this->compainService->createCompain($request);
+        return $this->compainService->createCompain($request);
     }
 
     /**
@@ -45,7 +45,7 @@ class CompainController extends Controller
      */
     public function show(Compain $compain)
     {
-       return response()->json(['compain' => $compain]);
+        return response()->json(['compain' => $compain]);
     }
 
     /**

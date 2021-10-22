@@ -10,7 +10,9 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -45,7 +47,8 @@ class User extends Authenticatable
     /**
      * Return user related compains
      */
-    public function compains() {
+    public function compains()
+    {
         return $this->hasMany(Compain::class);
     }
 }
