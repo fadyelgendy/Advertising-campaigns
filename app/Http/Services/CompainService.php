@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use DateTime;
 use App\Models\Compain;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,7 +35,7 @@ class CompainService
         $creatives = $request->hasFile('creative_upload') ? $this->uploadImages($request->allFiles()['creative_upload']) : [];
 
         $newCompain = new Compain();
-        $newCompain->user_id = $request->user_id; //Auth::id()
+        $newCompain->user_id = Auth::id();
         $newCompain->name = $request->name;
         $newCompain->date_from = $request->date_from;
         $newCompain->date_to = $request->date_to;
@@ -110,6 +111,8 @@ class CompainService
      */
     public function deleteCompain(Compain $compain)
     {
+        $creatives = json_decode($compain->creative_upload);
+        Storage::delete($creatives);
         $compain->delete();
 
         return ['success' => "Compain deleted successfuly"];

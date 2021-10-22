@@ -36,7 +36,8 @@ class CompainController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->compainService->createCompain($request);
+        $compain = $this->compainService->createCompain($request);
+        return response()->json($compain, 201);
     }
 
     /**
