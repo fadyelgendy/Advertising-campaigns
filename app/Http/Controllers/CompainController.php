@@ -6,6 +6,7 @@ use App\Models\Compain;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Services\CompainService;
+use App\Repository\CompainRepository;
 
 class CompainController extends Controller
 {
@@ -23,7 +24,8 @@ class CompainController extends Controller
      */
     public function index(Request $request)
     {
-        return response()->json(['compains' => $request->user()->compains]);
+        $compains = CompainRepository::all();
+        return response()->json(['compains' => $compains]);
     }
 
     /**
