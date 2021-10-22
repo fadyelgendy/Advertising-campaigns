@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Services\CompainService;
+use App\Models\Compain;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Response;
+use App\Http\Services\CompainService;
 
 class CompainController extends Controller
 {
@@ -17,82 +18,56 @@ class CompainController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param \Illuminate\Http\Request
-     * @return \Illuminate\Http\Response
+     * @param Request
+     * @return Response
      */
     public function index(Request $request)
     {
-        $compains = $request->user()->compains;
-
-        return response()
-        ->json([
-            'compains' => $compains
-        ]);
+        return response()->json(['compains' => $request->user()->compains]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Response
      */
     public function store(Request $request)
     {
-        // Validdate request
-        $validator = Validator::make($request->compain, [
-            'name' => 'required',
-            'date_from' => 'required',
-            'date_to' => 'required',
-            'daily_budget' => 'required',
-        ]);
-
-        if (!$validator) {
-            return response()
-                ->json([
-                    "error" => $validator
-                ]);
-        }
-
-        $compain = $this->compainService->createCompain($request->compain);
-
-        return response()
-        ->json([
-            'compain' => $compain
-        ]);
+       return $this->compainService->createCompain($request);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CompainController  $compainController
-     * @return \Illuminate\Http\Response
+     * @param  Compain $compain
+     * @return Response
      */
-    public function show(CompainController $compainController)
+    public function show(Compain $compain)
     {
-        //
+       return response()->json(['compain' => $compain]);
     }
-
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CompainController  $compainController
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  Compain  $compain
+     * @return Response
      */
-    public function update(Request $request, CompainController $compainController)
+    public function update(Request $request, Compain $compain)
     {
-        //
+        return $this->compainService->updateCompain($request, $compain);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CompainController  $compainController
-     * @return \Illuminate\Http\Response
+     * @param  Compain $compain
+     * @return Response
      */
-    public function destroy(CompainController $compainController)
+    public function destroy(Compain $compain)
     {
-        //
+        return $this->compainService->deleteCompain($compain);
     }
 }
