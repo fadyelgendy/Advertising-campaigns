@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use DateTime;
 use App\Models\Compain;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class CompainService
@@ -29,15 +30,15 @@ class CompainService
             return $isValid;
         }
 
-        $totalBudget = $this->getTotalBudget($request->compain);
-        $creatives = isset($request->compain['creative_upload']) ? $request->compain['creative_upload'] : [];
+        $totalBudget = $this->getTotalBudget($request->all());
+        $creatives = $request->hasFile('creative_upload') ? $this->uploadImages($request->allFiles()['creative_upload']) : [];
 
         $newCompain = new Compain();
-        $newCompain->user_id = $request->compain['user_id']; //Auth::id()
-        $newCompain->name = $request->compain['name'];
-        $newCompain->date_from = $request->compain['date_from'];
-        $newCompain->date_to = $request->compain['date_to'];
-        $newCompain->daily_budget = $request->compain['daily_budget'];
+        $newCompain->user_id = $request->user_id; //Auth::id()
+        $newCompain->name = $request->name;
+        $newCompain->date_from = $request->date_from;
+        $newCompain->date_to = $request->date_to;
+        $newCompain->daily_budget = $request->daily_budget;
         $newCompain->total_budget = $totalBudget;
         $newCompain->creative_upload = json_encode($creatives);
 
@@ -55,7 +56,7 @@ class CompainService
      */
     public function updateCompain(Request $request, Compain $compain)
     {
-        $newCompain = $request->compain;
+        $newCompain = $request->all();
 
         // name
         if (isset($newCompain['name'])) {
@@ -68,8 +69,8 @@ class CompainService
         }
 
         // Creative uploads
-        if (isset($newCompain['creative_upload'])) {
-            $compain->creative_upload = $newCompain['creative_upload'];
+        if ($request->hasFile('creative_upload')) {
+            $compain->creative_upload = $this->uploadImages($request->allFiles()['creative_upload']);
         }
 
         // check for new date from
@@ -85,7 +86,7 @@ class CompainService
         // check for new date to
         if (isset($newCompain['date_to'])) {
             $isValid = $this->validate($request, ['date_to' => 'date|after:date_from']);
-            if (isset($isValid)) {
+            if (isset($isValid['errors'])) {
                 return $isValid;
             }
 
@@ -138,12 +139,29 @@ class CompainService
      */
     private function validate(Request $request, array $fieldRules)
     {
-        $validator =  Validator::Make($request->compain, $fieldRules);
+        $validator =  Validator::Make($request->all(), $fieldRules);
 
         if ($validator->fails()) {
             return ['errors' => $validator->errors()->getMessages()];
         }
 
         return [ 'success' => true];
+    }
+
+    /**
+     * Uploads creative images
+     *
+     * @param Array $files
+     * @return Array $paths
+     */
+    private function uploadImages(array $files)
+    {
+        $paths = array();
+
+        foreach ($files as $file) {
+            array_push($paths, Storage::putFile('public/creatives', $file));
+        }
+
+        return $paths;
     }
 }

@@ -24,6 +24,6 @@ Route::get("/compains", [CompainController::class, 'index']);
 Route::prefix('/compain')->group(function() {
     Route::get('/{compain}', [CompainController::class, 'show']);
     Route::post("/store", [CompainController::class, 'store']);
-    Route::put("/{compain}", [CompainController::class, 'update']);
+    Route::post("/{compain}", [CompainController::class, 'update']);
     Route::delete("/{compain}", [CompainController::class, 'destroy']);
 });
