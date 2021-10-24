@@ -1,6 +1,6 @@
 @import url(https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap);
 :root {
-    --baseColor: #0E2F44;
+    --baseColor: #0e2f44;
 }
 
 * {
@@ -9,8 +9,14 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+    padding: 0;
+}
+
 body {
     font-family: "Nunito", sans-serif;
+    background-color: #eee;
 }
 
 header {
@@ -77,11 +83,15 @@ header ul li > a {
 
 .btn {
     border: none;
-    padding: 5px 10px;
+    padding: 5px;
     border-radius: 5px;
     background-color: var(--baseColor);
     color: #fff;
-    font-size: 16px;
+    font-size: 18px !important;
+    display: block;
+    width: 100%;
+    margin: 10px;
+    text-align: center;
 }
 
 .btn:hover {
@@ -89,22 +99,37 @@ header ul li > a {
     cursor: pointer;
 }
 
-h1 {
+.btn-group {
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1,
+h2 {
     text-align: center;
 }
 
-div.login__form {
+div.login__form,
+div.register__form {
+    padding-top: 10px;
     width: 300px;
-    margin:auto;
+    max-width: 350px;
+    margin: auto;
 }
 
-footer {
-    background-color: var(--baseColor);
-    width: 100%;
-    padding: 5px 10px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+.loading {
+    color: var(--baseColor);
     text-align: center;
-    color: #fff;
+    font-size: bold;
+    padding: 10px;
+    margin: 10px;
 }
+
+.alert {
+    color: #f00;
+    text-align: start;
+    margin: 5px;
+}
+

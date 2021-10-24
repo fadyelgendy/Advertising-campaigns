@@ -4,18 +4,16 @@
             <h2>Ads Compain</h2>
             <ul>
                 <li>
-                    <a href="">Login</a>
+                    <router-link to="/compain/create">Add Compain</router-link>
                 </li>
-                <li>
-                    <a href="">Register</a>
-                </li>
+                <li><a href="">logout</a></li>
             </ul>
         </header>
     </div>
 </template>
 
 <script>
-    export default {
-        name: "Header",
-    }
+export default {
+    name: "Header"
+};
 </script>

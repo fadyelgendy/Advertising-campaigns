@@ -1,12 +1,27 @@
-require('./bootstrap');
+require("./bootstrap");
 
-import Vue from 'vue';
-import App from "./components/App.vue";
+import Vue from "vue";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import {
+    faPlusSquare,
+    faPencilAlt,
+    faSpinner,
+    faEye
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import router from "./router";
+import store from "./store";
+import App from "./App.vue";
+
+// Font Awesome
+library.add(faPlusSquare, faPencilAlt, faSpinner, faEye);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
+
+Vue.config.productionTip = false;
 
 // Vue instance
-const app = new Vue({
-    el: "#app",
-    components: {
-        App
-    }
-});
+new Vue({
+    router,
+    store,
+    render: h => h(App)
+}).$mount("#app");
