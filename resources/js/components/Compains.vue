@@ -1,5 +1,12 @@
 <template>
     <div class="container">
+        <Modal v-bind:gallery="gallery" v-if="showModal" />
+
+        <div
+            v-show="showModal"
+            class="overlay"
+            @click="showModal = false"
+        ></div>
         <Spinner v-show="processing" />
         <div class="head">
             <h2>campaigns list:</h2>
@@ -32,7 +39,12 @@
                     <td>${{ compain.total_budget }}</td>
                     <td>{{ compain.created_at }}</td>
                     <td class="action_btns">
-                        <button>
+                        <button
+                            @click="
+                                (showModal = true),
+                                    (gallery = compain.creative_upload)
+                            "
+                        >
                             <font-awesome-icon icon="eye"></font-awesome-icon>
                         </button>
                         <router-link
@@ -55,6 +67,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Spinner from "./Sipnner.vue";
+import Modal from "./Modal.vue";
 
 export default {
     name: "Compains",
@@ -62,11 +75,14 @@ export default {
     data() {
         return {
             user: this.$store.state.auth.user,
-            processing: false
+            processing: false,
+            showModal: false,
+            gallery: []
         };
     },
     components: {
-        Spinner
+        Spinner,
+        Modal
     },
     methods: {
         ...mapActions(["fetchCompains"])
@@ -83,6 +99,16 @@ export default {
         } catch (err) {
             this.processing = false;
         }
+
+        // // load Modal gallery
+        // try {
+        //     const response = await axios.get(`/api/compain/${this.id}`);
+        //     if (response.status == 200) {
+        //         this.gallary = response.data.compain.creative_upload;
+        //     }
+        // } catch (err) {
+        //     console.log(err);
+        // }
     }
 };
 </script>
@@ -134,6 +160,7 @@ td {
     border: none;
     font-size: 16px;
     margin: 0;
+    cursor: pointer;
 }
 
 .action_btns a {
@@ -161,5 +188,15 @@ td {
     background-color: #008800;
     color: #ddd;
     text-transform: capitalize;
+}
+.overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.3);
 }
 </style>

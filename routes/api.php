@@ -13,6 +13,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, "login"]);
 Route::post('/register', [AuthController::class, "register"]);
 Route::post('/logout', [AuthController::class, "logout"])->middleware("auth:sanctum");
+Route::post("/upload", [CompainController::class, 'upload']);
 
 // Private routes
 Route::group(['middleware' => 'auth:sanctum', 'prefix'=> 'compain'], function() { 
@@ -20,5 +21,4 @@ Route::group(['middleware' => 'auth:sanctum', 'prefix'=> 'compain'], function() 
     Route::post("/store", [CompainController::class, 'store']);
     Route::put("/{id}", [CompainController::class, 'update']);
     Route::delete("/{id}", [CompainController::class, 'destroy']);
-    Route::post("/upload", [CompainController::class, 'upload']);
 });

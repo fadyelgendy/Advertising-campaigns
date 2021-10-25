@@ -17,7 +17,7 @@ export default {
 .back_btn {
     display: flex;
     align-content: flex-end;
-    justify-content: end;
+    justify-content: flex-end;
 }
 .back_btn a {
     margin: 5px;

@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -27,6 +26,28 @@ class AuthController extends Controller
         }
 
         return  ['errors' => 'Not Authenticated!'];
+    }
+
+    public function register(Request $request)
+    {
+        $credentials = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|same:password|min:6',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            ]
+        );
+
+        return [
+            'success' => true,
+            'message' => "User Reqistered successfully" 
+        ];
     }
 
     /**
