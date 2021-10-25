@@ -132,7 +132,7 @@ export default {
                 daily_budget: ""
             },
             dropzoneOptions: {
-                url: "http://compains.test/api/upload",
+                url: "http://compains.test/api/compain/upload",
                 thumbnailWidth: 150,
                 maxFilesize: 1000000,
                 headers: {
