@@ -7,15 +7,19 @@ use DateTime;
 use App\Models\Compain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Repository\CompainRepository;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class CompainService
 {
+    /**
+     * get all campaigns related to logged user
+     *
+     * @return void
+     */
     public function getAllCompains()
     {
-        $results = CompainRepository::all();
+        $results = Compain::where('user_id', Auth::id())->get();
 
         $compains= array();
         foreach($results as $result) {
@@ -59,7 +63,7 @@ class CompainService
         $totalBudget = $this->getTotalBudget($request->all());
 
         $newCompain = new Compain();
-        $newCompain->user_id = 1;
+        $newCompain->user_id = Auth::id();
         $newCompain->name = $request->name;
         $newCompain->date_from = $request->date_from;
         $newCompain->date_to = $request->date_to;
@@ -155,6 +159,12 @@ class CompainService
         return ['success' => "Compain deleted successfuly"];
     }
 
+    /**
+     * Upload creatives
+     *
+     * @param Request $request
+     * @return void
+     */
     public function upload(Request $request)
     {
         $file = $request->file('file');
@@ -227,6 +237,12 @@ class CompainService
         return $paths;
     }
 
+    /**
+     * format data for request
+     *
+     * @param mixed $data
+     * @return void
+     */
     private function formatOutput($data)
     {
         $creatives = array_map(function ($img) {

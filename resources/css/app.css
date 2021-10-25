@@ -44,10 +44,6 @@ header ul li {
     padding: 5px 10px;
 }
 
-header ul li:hover {
-    background-color: #fff;
-}
-
 header ul li > a:hover {
     color: var(--baseColor);
 }
@@ -113,7 +109,6 @@ h2 {
 
 div.login__form,
 div.register__form {
-    padding-top: 10px;
     width: 300px;
     max-width: 350px;
     margin: auto;

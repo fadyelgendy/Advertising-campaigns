@@ -1,6 +1,7 @@
 <template>
     <div class="login__form">
-        <h1>Login</h1>
+        <Spinner v-show="processing" />
+        <h2>login</h2>
         <form action="#" @submit.prevent="handleLogin">
             <div class="form-group">
                 <label for="email">Email:</label>
@@ -30,13 +31,18 @@
 
             <div class="btn-group">
                 <button class="btn" type="submit">Login</button>
-                <router-link to="/register" class="btn">Register</router-link>
+                <router-link to="/user/register" class="btn"
+                    >Register</router-link
+                >
             </div>
         </form>
     </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
+import Spinner from "./Sipnner.vue";
+
 export default {
     name: "Login",
     data() {
@@ -48,13 +54,48 @@ export default {
             errors: {
                 email: "",
                 password: ""
-            }
+            },
+            processing: false
         };
     },
     methods: {
-        handleLogin() {
-            // login
+        ...mapActions(["login"]),
+        async handleLogin() {
+            if (this.user.email == "") {
+                return (this.errors.email = "Email field is required!");
+            }
+
+            if (this.user.password == "") {
+                return (this.errors.password = "Password field is required!");
+            }
+
+            this.processing = true;
+            try {
+                await axios.get("sanctum/csrf-cookie");
+                await this.login(this.user);
+                this.processing = false;
+            } catch (err) {
+                console.error(err);
+            }
         }
+    },
+    components: {
+        Spinner
     }
 };
 </script>
+
+<style scoped>
+.login__form {
+    background: #fff;
+}
+
+.login__form h2 {
+    background: #ddd;
+    width: 100%;
+    margin: 0px;
+    padding: 10px;
+    text-align: center;
+    text-transform: capitalize;
+}
+</style>

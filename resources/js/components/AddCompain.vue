@@ -2,13 +2,8 @@
     <div class="container">
         <Spinner v-show="display" />
         <div class="head">
+            <BackBtn />
             <h2>create new campaign</h2>
-            <div class="back_btn">
-                <router-link to="/compains">
-                    <font-awesome-icon icon="arrow-left"></font-awesome-icon>
-                    back to campaigns list
-                </router-link>
-            </div>
         </div>
         <form enctype="multipart/form-data">
             <div class="form-group">
@@ -80,7 +75,7 @@
 
             <div class="btn-group">
                 <button class="btn" @click.prevent="handleSubmit">Save</button>
-                <router-link class="btn" to="/compains">Cancel</router-link>
+                <router-link class="btn" to="/">Cancel</router-link>
             </div>
         </form>
     </div>
@@ -95,6 +90,7 @@ import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import { mapActions } from "vuex";
 import Spinner from "./Sipnner.vue";
+import BackBtn from "./BackBtn.vue";
 
 export default {
     name: "AddCompain",
@@ -109,8 +105,6 @@ export default {
     data() {
         return {
             compain: {
-                //TODO: change this to auth user in backend
-                user_id: 1,
                 name: "",
                 date_from: "",
                 date_to: "",
@@ -137,7 +131,8 @@ export default {
     },
     components: {
         vueDropzone: vue2Dropzone,
-        Spinner
+        Spinner,
+        BackBtn
     },
     methods: {
         ...mapActions(["addCompain"]),
@@ -179,9 +174,10 @@ export default {
                     if (res.data.errors) {
                         this.display = false;
                         this.errors = { ...res.data.errors };
+                        return;
                     }
                 }
-                this.$router.push("/compains");
+                this.$router.push("/");
             } catch (err) {
                 console.error(err);
             }
@@ -202,7 +198,7 @@ export default {
     width: 50%;
     max-width: 50%;
     background: #fff;
-    padding: 10px;
+    /* padding: 10px; */
     margin: 10px auto;
 }
 
@@ -211,23 +207,10 @@ label {
 }
 
 .head {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
-    flex-direction: row;
+    background: #ddd;
 }
 h2 {
-    flex: 10;
-}
-.back_btn a {
-    margin: 5px;
-    border: 1px solid rgb(202, 206, 202);
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: block;
-    background-color: rgb(202, 206, 202);
-    color: rgb(14, 13, 13);
     text-transform: capitalize;
+    text-align: center;
 }
 </style>

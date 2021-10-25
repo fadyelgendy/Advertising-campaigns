@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <Spinner v-show="display" />
+        <Spinner v-show="processing" />
         <div class="head">
             <h2>campaigns list:</h2>
             <div class="add_compain_btn">
@@ -61,7 +61,8 @@ export default {
     props: ["id"],
     data() {
         return {
-            display: false
+            user: this.$store.state.auth.user,
+            processing: false
         };
     },
     components: {
@@ -74,12 +75,13 @@ export default {
         ...mapGetters(["allCompains"])
     },
     async created() {
-        this.display = true;
+        this.processing = true;
         try {
+            await axios.get("sanctum/csrf-cookie");
             await this.fetchCompains();
-            this.display = false;
+            this.processing = false;
         } catch (err) {
-            this.display = false;
+            this.processing = false;
         }
     }
 };

@@ -15,11 +15,10 @@ Route::post('/register', [AuthController::class, "register"]);
 Route::post('/logout', [AuthController::class, "logout"])->middleware("auth:sanctum");
 
 // Private routes
-Route::group(['prefix'=> 'compain'], function() { 
-    Route::get("/", [CompainController::class, 'index']);
-    Route::get('/edit/{id}', [CompainController::class, 'edit']);
+Route::group(['middleware' => 'auth:sanctum', 'prefix'=> 'compain'], function() { 
+    Route::get("/{id?}", [CompainController::class, 'index']);
     Route::post("/store", [CompainController::class, 'store']);
-    Route::put("/update/", [CompainController::class, 'update']);
+    Route::put("/{id}", [CompainController::class, 'update']);
     Route::delete("/{id}", [CompainController::class, 'destroy']);
     Route::post("/upload", [CompainController::class, 'upload']);
 });

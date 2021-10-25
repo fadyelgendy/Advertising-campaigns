@@ -1,14 +1,10 @@
 <template>
     <div class="container">
         <Spinner v-show="display" />
+
         <div class="head">
+            <BackBtn />
             <h2>edit campaign: {{ compain.name }}</h2>
-            <div class="back_btn">
-                <router-link to="/compains">
-                    <font-awesome-icon icon="arrow-left"></font-awesome-icon>
-                    back to campaigns list
-                </router-link>
-            </div>
         </div>
         <form enctype="multipart/form-data">
             <div class="form-group">
@@ -90,7 +86,7 @@
 
             <div class="btn-group">
                 <button class="btn" @click.prevent="handleSubmit">Save</button>
-                <router-link class="btn" to="/compains">Cancel</router-link>
+                <router-link class="btn" to="/">Cancel</router-link>
             </div>
         </form>
     </div>
@@ -105,6 +101,7 @@ import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import { mapActions } from "vuex";
 import Spinner from "./Sipnner.vue";
+import BackBtn from "./BackBtn.vue";
 
 export default {
     name: "AddCompain",
@@ -148,7 +145,8 @@ export default {
     },
     components: {
         vueDropzone: vue2Dropzone,
-        Spinner
+        Spinner,
+        BackBtn
     },
     methods: {
         ...mapActions(["updateCompain"]),
@@ -194,14 +192,12 @@ export default {
                 if (res.status == 200) {
                     if (res.data.errors) {
                         this.display = false;
-
-                        console.log(res.data.errors);
                         this.errors = { ...res.data.errors };
                         return;
                     }
                 }
 
-                this.$router.push("/compains");
+                this.$router.push("/");
             } catch (err) {
                 console.error(err);
             }
@@ -218,8 +214,9 @@ export default {
         this.display = true;
         try {
             const response = await axios.get(
-                `api/compain/edit/${this.$route.params.id}`
+                `/api/compain/${this.$route.params.id}`
             );
+            console.log(response);
             if (response.status == 200) {
                 this.compain = { ...response.data.compain };
                 this.display = false;
@@ -236,7 +233,7 @@ export default {
     width: 50%;
     max-width: 50%;
     background: #fff;
-    padding: 10px;
+    /* padding: 10px; */
     margin: 10px auto;
 }
 
@@ -258,29 +255,13 @@ img {
     width: 100px;
     display: block;
 }
-h4 {
+h4,
+h2 {
     text-align: center;
     text-transform: capitalize;
 }
 
 .head {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    align-items: center;
-    flex-direction: row;
-}
-h2 {
-    flex: 10;
-}
-.back_btn a {
-    margin: 5px;
-    border: 1px solid rgb(202, 206, 202);
-    padding: 5px 10px;
-    border-radius: 5px;
-    display: block;
-    background-color: rgb(202, 206, 202);
-    color: rgb(14, 13, 13);
-    text-transform: capitalize;
+    background: #ddd;
 }
 </style>

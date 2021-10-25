@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Http\JsonResponse;
 use App\Http\Services\CompainService;
 
 
@@ -21,9 +20,13 @@ class CompainController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->compainService->getAllCompains();
+        if (!$request->id) {
+            return $this->compainService->getAllCompains();
+        }
+
+        return $this->compainService->getCompain($request->id);
     }
 
     /**
@@ -36,17 +39,6 @@ class CompainController extends Controller
     {
         $compain = $this->compainService->createCompain($request);
         return response()->json($compain, 201);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  Request $request
-     * @return Response
-     */
-    public function edit(Request $request)
-    {
-        return $this->compainService->getCompain($request->id);
     }
 
     /**
@@ -77,7 +69,7 @@ class CompainController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function upload(Request $request): JsonResponse
+    public function upload(Request $request)
     {
         return $this->compainService->upload($request);
     }

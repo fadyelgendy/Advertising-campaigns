@@ -48,24 +48,56 @@
 
             <div class="btn-group">
                 <button class="btn" type="submit">Register</button>
-                <router-link to="/login" class="btn">Cancel</router-link>
+                <router-link to="/user/login" class="btn">Cancel</router-link>
             </div>
         </form>
     </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
     name: "Register",
     data() {
         return {
             user: {
-                username: ""
-            }
+                username: "",
+                email: "",
+                password: "",
+                password_confirmation: ""
+            },
+            processing: false
         };
     },
     methods: {
-        createUser() {}
+        ...mapActions({ signIn: "auth/login" }),
+        async handleRegister() {
+            this.processing = true;
+            await axios
+                .post("/register", this.user)
+                .then(response => {
+                    this.signIn();
+                })
+                .catch(err => {
+                    console.error(err);
+                })
+                .finally(() => {
+                    this.processing = false;
+                });
+        }
     }
 };
 </script>
+
+<style scoped>
+.register__form {
+    background-color: #fff;
+}
+
+.register__form h2 {
+    background: #ddd;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+</style>

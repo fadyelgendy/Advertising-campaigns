@@ -7,7 +7,7 @@ import Compain from "../components/Compain.vue";
 const routes = [
     {
         name: "home",
-        path: "/compains",
+        path: "/",
         component: Compains,
         meta: { requireAuth: true }
     },
@@ -25,18 +25,18 @@ const routes = [
     },
     {
         name: "logout",
-        path: "/logout",
+        path: "/user/logout",
         meta: { requireAuth: true }
     },
     {
         name: "login",
-        path: "/login",
+        path: "/user/login",
         component: Login,
         meta: { requireAuth: false }
     },
     {
         name: "register",
-        path: "/register",
+        path: "/user/register",
         component: Register,
         meta: { requireAuth: false }
     }
