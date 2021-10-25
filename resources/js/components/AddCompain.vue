@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <Spinner v-show="display" />
         <div class="head">
             <h2>create new campaign</h2>
             <div class="back_btn">
@@ -93,6 +94,7 @@ const csrf = document
 import vue2Dropzone from "vue2-dropzone";
 import "vue2-dropzone/dist/vue2Dropzone.min.css";
 import { mapActions } from "vuex";
+import Spinner from "./Sipnner.vue";
 
 export default {
     name: "AddCompain",
@@ -129,15 +131,17 @@ export default {
                     Accept: "application/json",
                     "X-CSRF-TOKEN": csrf
                 }
-            }
+            },
+            display: false
         };
     },
     components: {
-        vueDropzone: vue2Dropzone
+        vueDropzone: vue2Dropzone,
+        Spinner
     },
     methods: {
         ...mapActions(["addCompain"]),
-        handleSubmit() {
+        async handleSubmit() {
             // check for errors
             if (this.compain.name == "") {
                 return (this.errors.name = "Name field is required!");
@@ -168,8 +172,19 @@ export default {
             this.errors.daily_budget = "";
 
             // Store compain
-            this.addCompain(this.compain);
-            this.$router.push("/compains");
+            this.display = true;
+            try {
+                const res = await this.addCompain(this.compain);
+                if (res != undefined && res.status == 201) {
+                    if (res.data.errors) {
+                        this.display = false;
+                        this.errors = { ...res.data.errors };
+                    }
+                }
+                this.$router.push("/compains");
+            } catch (err) {
+                console.error(err);
+            }
         },
         handleUpload(file, res) {
             if (res.success) {

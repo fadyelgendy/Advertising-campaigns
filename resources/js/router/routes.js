@@ -1,4 +1,4 @@
-import Compains from "../components/Compains";
+import Compains from "../components/Compains.vue";
 import Login from "../components/Login.vue";
 import Register from "../components/Register.vue";
 import AddCompain from "../components/AddCompain.vue";

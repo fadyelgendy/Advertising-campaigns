@@ -12192,10 +12192,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
-/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue2-dropzone */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.js");
+/* harmony import */ var vue2_dropzone__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_dropzone__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue2_dropzone_dist_vue2Dropzone_min_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue2-dropzone/dist/vue2Dropzone.min.css */ "./node_modules/vue2-dropzone/dist/vue2Dropzone.min.css");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _Sipnner_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Sipnner.vue */ "./resources/js/components/Sipnner.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -12289,7 +12298,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 var csrf = document.getElementsByName("csrf-token")[0].getAttribute("content");
+
 
 
 
@@ -12328,48 +12339,107 @@ var csrf = document.getElementsByName("csrf-token")[0].getAttribute("content");
           Accept: "application/json",
           "X-CSRF-TOKEN": csrf
         }
-      }
+      },
+      display: false
     };
   },
   components: {
-    vueDropzone: (vue2_dropzone__WEBPACK_IMPORTED_MODULE_0___default())
+    vueDropzone: (vue2_dropzone__WEBPACK_IMPORTED_MODULE_1___default()),
+    Spinner: _Sipnner_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapActions)(["addCompain"])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)(["addCompain"])), {}, {
     handleSubmit: function handleSubmit() {
-      // check for errors
-      if (this.compain.name == "") {
-        return this.errors.name = "Name field is required!";
-      } // clear after validate
+      var _this = this;
 
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.compain.name == "")) {
+                  _context.next = 2;
+                  break;
+                }
 
-      this.errors.name = "";
+                return _context.abrupt("return", _this.errors.name = "Name field is required!");
 
-      if (this.compain.date_from == "") {
-        return this.errors.date_from = "Date from field is required!";
-      }
+              case 2:
+                // clear after validate
+                _this.errors.name = "";
 
-      this.errors.date_from = "";
+                if (!(_this.compain.date_from == "")) {
+                  _context.next = 5;
+                  break;
+                }
 
-      if (this.compain.date_to == "") {
-        return this.errors.date_to = "Date to field is required!";
-      }
+                return _context.abrupt("return", _this.errors.date_from = "Date from field is required!");
 
-      this.errors.date_to = "";
+              case 5:
+                _this.errors.date_from = "";
 
-      if (this.compain.daily_budget == "") {
-        return this.errors.daily_budget = "Daily budget to field is required!";
-      }
+                if (!(_this.compain.date_to == "")) {
+                  _context.next = 8;
+                  break;
+                }
 
-      this.errors.daily_budget = "";
+                return _context.abrupt("return", _this.errors.date_to = "Date to field is required!");
 
-      if (this.compain.daily_budget <= 0) {
-        return this.errors.daily_budget = "Daily budget must be more than $1.00";
-      }
+              case 8:
+                _this.errors.date_to = "";
 
-      this.errors.daily_budget = ""; // Store compain
+                if (!(_this.compain.daily_budget == "")) {
+                  _context.next = 11;
+                  break;
+                }
 
-      this.addCompain(this.compain);
-      this.$router.push("/compains");
+                return _context.abrupt("return", _this.errors.daily_budget = "Daily budget to field is required!");
+
+              case 11:
+                _this.errors.daily_budget = "";
+
+                if (!(_this.compain.daily_budget <= 0)) {
+                  _context.next = 14;
+                  break;
+                }
+
+                return _context.abrupt("return", _this.errors.daily_budget = "Daily budget must be more than $1.00");
+
+              case 14:
+                _this.errors.daily_budget = ""; // Store compain
+
+                _this.display = true;
+                _context.prev = 16;
+                _context.next = 19;
+                return _this.addCompain(_this.compain);
+
+              case 19:
+                res = _context.sent;
+
+                if (res != undefined && res.status == 201) {
+                  if (res.data.errors) {
+                    _this.display = false;
+                    _this.errors = _objectSpread({}, res.data.errors);
+                  }
+                }
+
+                _this.$router.push("/compains");
+
+                _context.next = 27;
+                break;
+
+              case 24:
+                _context.prev = 24;
+                _context.t0 = _context["catch"](16);
+                console.error(_context.t0);
+
+              case 27:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[16, 24]]);
+      }))();
     },
     handleUpload: function handleUpload(file, res) {
       if (res.success) {
@@ -12562,41 +12632,107 @@ var csrf = document.getElementsByName("csrf-token")[0].getAttribute("content");
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)(["updateCompain"])), {}, {
     handleSubmit: function handleSubmit() {
-      // check for errors
-      if (this.compain.name == "") {
-        return this.errors.name = "Name field is required!";
-      } // clear after validate
+      var _this = this;
 
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!(_this.compain.name == "")) {
+                  _context.next = 2;
+                  break;
+                }
 
-      this.errors.name = "";
+                return _context.abrupt("return", _this.errors.name = "Name field is required!");
 
-      if (this.compain.date_from == "") {
-        return this.errors.date_from = "Date from field is required!";
-      }
+              case 2:
+                // clear after validate
+                _this.errors.name = "";
 
-      this.errors.date_from = "";
+                if (!(_this.compain.date_from == "")) {
+                  _context.next = 5;
+                  break;
+                }
 
-      if (this.compain.date_to == "") {
-        return this.errors.date_to = "Date to field is required!";
-      }
+                return _context.abrupt("return", _this.errors.date_from = "Date from field is required!");
 
-      this.errors.date_to = "";
+              case 5:
+                _this.errors.date_from = "";
 
-      if (this.compain.daily_budget == "") {
-        return this.errors.daily_budget = "Daily budget to field is required!";
-      }
+                if (!(_this.compain.date_to == "")) {
+                  _context.next = 8;
+                  break;
+                }
 
-      this.errors.daily_budget = "";
+                return _context.abrupt("return", _this.errors.date_to = "Date to field is required!");
 
-      if (this.compain.daily_budget <= 0) {
-        return this.errors.daily_budget = "Daily budget must be more than $1.00";
-      }
+              case 8:
+                _this.errors.date_to = "";
 
-      this.errors.daily_budget = "";
-      console.log(this.compain); // Update compain
+                if (!(_this.compain.daily_budget == "")) {
+                  _context.next = 11;
+                  break;
+                }
 
-      this.updateCompain(this.compain, this.compain.id);
-      this.$router.push("/compains");
+                return _context.abrupt("return", _this.errors.daily_budget = "Daily budget to field is required!");
+
+              case 11:
+                _this.errors.daily_budget = "";
+
+                if (!(_this.compain.daily_budget <= 0)) {
+                  _context.next = 14;
+                  break;
+                }
+
+                return _context.abrupt("return", _this.errors.daily_budget = "Daily budget must be more than $1.00");
+
+              case 14:
+                _this.errors.daily_budget = ""; // Show spinner
+
+                _this.display = true; // Update compain
+
+                _context.prev = 16;
+                _context.next = 19;
+                return _this.updateCompain(_this.compain, _this.compain.id);
+
+              case 19:
+                res = _context.sent;
+
+                if (!(res.status == 200)) {
+                  _context.next = 26;
+                  break;
+                }
+
+                if (!res.data.errors) {
+                  _context.next = 26;
+                  break;
+                }
+
+                _this.display = false;
+                console.log(res.data.errors);
+                _this.errors = _objectSpread({}, res.data.errors);
+                return _context.abrupt("return");
+
+              case 26:
+                _this.$router.push("/compains");
+
+                _context.next = 32;
+                break;
+
+              case 29:
+                _context.prev = 29;
+                _context.t0 = _context["catch"](16);
+                console.error(_context.t0);
+
+              case 32:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[16, 29]]);
+      }))();
     },
     handleUpload: function handleUpload(file, res) {
       if (res.success) {
@@ -12607,41 +12743,41 @@ var csrf = document.getElementsByName("csrf-token")[0].getAttribute("content");
     }
   }),
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
       var response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
         while (1) {
-          switch (_context.prev = _context.next) {
+          switch (_context2.prev = _context2.next) {
             case 0:
-              _this.display = true;
-              _context.prev = 1;
-              _context.next = 4;
-              return axios.get("api/compain/edit/".concat(_this.$route.params.id));
+              _this2.display = true;
+              _context2.prev = 1;
+              _context2.next = 4;
+              return axios.get("api/compain/edit/".concat(_this2.$route.params.id));
 
             case 4:
-              response = _context.sent;
+              response = _context2.sent;
 
               if (response.status == 200) {
-                _this.compain = _objectSpread({}, response.data.compain);
-                _this.display = false;
+                _this2.compain = _objectSpread({}, response.data.compain);
+                _this2.display = false;
               }
 
-              _context.next = 11;
+              _context2.next = 11;
               break;
 
             case 8:
-              _context.prev = 8;
-              _context.t0 = _context["catch"](1);
-              _this.display = false;
+              _context2.prev = 8;
+              _context2.t0 = _context2["catch"](1);
+              _this2.display = false;
 
             case 11:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee, null, [[1, 8]]);
+      }, _callee2, null, [[1, 8]]);
     }))();
   }
 });
@@ -13118,7 +13254,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _components_Compains__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Compains */ "./resources/js/components/Compains.vue");
+/* harmony import */ var _components_Compains_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/Compains.vue */ "./resources/js/components/Compains.vue");
 /* harmony import */ var _components_Login_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/Login.vue */ "./resources/js/components/Login.vue");
 /* harmony import */ var _components_Register_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Register.vue */ "./resources/js/components/Register.vue");
 /* harmony import */ var _components_AddCompain_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/AddCompain.vue */ "./resources/js/components/AddCompain.vue");
@@ -13131,7 +13267,7 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [{
   name: "home",
   path: "/compains",
-  component: _components_Compains__WEBPACK_IMPORTED_MODULE_0__["default"],
+  component: _components_Compains_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
   meta: {
     requireAuth: true
   }
@@ -13269,9 +13405,18 @@ var actions = {
 
             case 3:
               response = _context2.sent;
-              commit("newCompain", response.compain);
 
-            case 5:
+              if (!response.data.errors) {
+                _context2.next = 6;
+                break;
+              }
+
+              return _context2.abrupt("return", response);
+
+            case 6:
+              commit("newCompain", response.data.compain);
+
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -13281,7 +13426,7 @@ var actions = {
   },
   updateCompain: function updateCompain(_ref3, compain, id) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-      var commit, response;
+      var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -13291,7 +13436,7 @@ var actions = {
               return axios__WEBPACK_IMPORTED_MODULE_1___default().put("/api/compain/update/", compain);
 
             case 3:
-              response = _context3.sent;
+              return _context3.abrupt("return", _context3.sent);
 
             case 4:
             case "end":
@@ -33018,216 +33163,232 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "head" }, [
-      _c("h2", [_vm._v("create new campaign")]),
+  return _c(
+    "div",
+    { staticClass: "container" },
+    [
+      _c("Spinner", {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.display,
+            expression: "display"
+          }
+        ]
+      }),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "back_btn" },
-        [
-          _c(
-            "router-link",
-            { attrs: { to: "/compains" } },
-            [
-              _c("font-awesome-icon", { attrs: { icon: "arrow-left" } }),
-              _vm._v("\n                back to campaigns list\n            ")
+      _c("div", { staticClass: "head" }, [
+        _c("h2", [_vm._v("create new campaign")]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "back_btn" },
+          [
+            _c(
+              "router-link",
+              { attrs: { to: "/compains" } },
+              [
+                _c("font-awesome-icon", { attrs: { icon: "arrow-left" } }),
+                _vm._v("\n                back to campaigns list\n            ")
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _c("form", { attrs: { enctype: "multipart/form-data" } }, [
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("name")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.compain.name,
+                expression: "compain.name"
+              }
             ],
-            1
-          )
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("form", { attrs: { enctype: "multipart/form-data" } }, [
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("name")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.compain.name,
-              expression: "compain.name"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "text", name: "name", id: "name" },
-          domProps: { value: _vm.compain.name },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.compain, "name", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _vm.errors.name
-          ? _c("div", { staticClass: "alert" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.errors.name) +
-                  "\n            "
-              )
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("date from")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.compain.date_from,
-              expression: "compain.date_from"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "date", name: "date_from", id: "date_from" },
-          domProps: { value: _vm.compain.date_from },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.compain, "date_from", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _vm.errors.date_from
-          ? _c("div", { staticClass: "alert" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.errors.date_from) +
-                  "\n            "
-              )
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("date to")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.compain.date_to,
-              expression: "compain.date_to"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "date", name: "date_to", id: "date_to" },
-          domProps: { value: _vm.compain.date_to },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.compain, "date_to", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _vm.errors.date_to
-          ? _c("div", { staticClass: "alert" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.errors.date_to) +
-                  "\n            "
-              )
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group" }, [
-        _c("label", { attrs: { for: "" } }, [_vm._v("daily budget")]),
-        _vm._v(" "),
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.compain.daily_budget,
-              expression: "compain.daily_budget"
-            }
-          ],
-          staticClass: "form-control",
-          attrs: { type: "number", name: "daily_budget", id: "daily_budget" },
-          domProps: { value: _vm.compain.daily_budget },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
-              }
-              _vm.$set(_vm.compain, "daily_budget", $event.target.value)
-            }
-          }
-        }),
-        _vm._v(" "),
-        _vm.errors.daily_budget
-          ? _c("div", { staticClass: "alert" }, [
-              _vm._v(
-                "\n                " +
-                  _vm._s(_vm.errors.daily_budget) +
-                  "\n            "
-              )
-            ])
-          : _vm._e()
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "form-group" },
-        [
-          _c("label", { attrs: { for: "" } }, [_vm._v("creative upload")]),
-          _vm._v(" "),
-          _c("vue-dropzone", {
-            ref: "myVueDropzone",
-            attrs: { id: "dropzone", options: _vm.dropzoneOptions },
-            on: { "vdropzone-success": _vm.handleUpload }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "btn-group" },
-        [
-          _c(
-            "button",
-            {
-              staticClass: "btn",
-              on: {
-                click: function($event) {
-                  $event.preventDefault()
-                  return _vm.handleSubmit.apply(null, arguments)
+            staticClass: "form-control",
+            attrs: { type: "text", name: "name", id: "name" },
+            domProps: { value: _vm.compain.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
                 }
+                _vm.$set(_vm.compain, "name", $event.target.value)
               }
-            },
-            [_vm._v("Save")]
-          ),
+            }
+          }),
           _vm._v(" "),
-          _c(
-            "router-link",
-            { staticClass: "btn", attrs: { to: "/compains" } },
-            [_vm._v("Cancel")]
-          )
-        ],
-        1
-      )
-    ])
-  ])
+          _vm.errors.name
+            ? _c("div", { staticClass: "alert" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.name) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("date from")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.compain.date_from,
+                expression: "compain.date_from"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "date", name: "date_from", id: "date_from" },
+            domProps: { value: _vm.compain.date_from },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.compain, "date_from", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.date_from
+            ? _c("div", { staticClass: "alert" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.date_from) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("date to")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.compain.date_to,
+                expression: "compain.date_to"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "date", name: "date_to", id: "date_to" },
+            domProps: { value: _vm.compain.date_to },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.compain, "date_to", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.date_to
+            ? _c("div", { staticClass: "alert" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.date_to) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-group" }, [
+          _c("label", { attrs: { for: "" } }, [_vm._v("daily budget")]),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.compain.daily_budget,
+                expression: "compain.daily_budget"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { type: "number", name: "daily_budget", id: "daily_budget" },
+            domProps: { value: _vm.compain.daily_budget },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.compain, "daily_budget", $event.target.value)
+              }
+            }
+          }),
+          _vm._v(" "),
+          _vm.errors.daily_budget
+            ? _c("div", { staticClass: "alert" }, [
+                _vm._v(
+                  "\n                " +
+                    _vm._s(_vm.errors.daily_budget) +
+                    "\n            "
+                )
+              ])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "form-group" },
+          [
+            _c("label", { attrs: { for: "" } }, [_vm._v("creative upload")]),
+            _vm._v(" "),
+            _c("vue-dropzone", {
+              ref: "myVueDropzone",
+              attrs: { id: "dropzone", options: _vm.dropzoneOptions },
+              on: { "vdropzone-success": _vm.handleUpload }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "btn-group" },
+          [
+            _c(
+              "button",
+              {
+                staticClass: "btn",
+                on: {
+                  click: function($event) {
+                    $event.preventDefault()
+                    return _vm.handleSubmit.apply(null, arguments)
+                  }
+                }
+              },
+              [_vm._v("Save")]
+            ),
+            _vm._v(" "),
+            _c(
+              "router-link",
+              { staticClass: "btn", attrs: { to: "/compains" } },
+              [_vm._v("Cancel")]
+            )
+          ],
+          1
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

@@ -107,7 +107,7 @@ class CompainService
         }
 
         // check for new date from
-        if (isset($newCompain['date_from'])) {
+        if (isset($newCompain['date_from']) && $newCompain['date_from'] != $compain->date_from) {
             $isValid = $this->validate($request, ['date_from' => 'date|after_or_equal:today']);
             if (isset($isValid['errors'])) {
                 return $isValid;
@@ -117,7 +117,7 @@ class CompainService
         }
 
         // check for new date to
-        if (isset($newCompain['date_to'])) {
+        if (isset($newCompain['date_to']) && $newCompain['date_to'] != $compain->date_to) {
             $isValid = $this->validate($request, ['date_to' => 'date|after:date_from']);
             if (isset($isValid['errors'])) {
                 return $isValid;

@@ -152,7 +152,7 @@ export default {
     },
     methods: {
         ...mapActions(["updateCompain"]),
-        handleSubmit() {
+        async handleSubmit() {
             // check for errors
             if (this.compain.name == "") {
                 return (this.errors.name = "Name field is required!");
@@ -182,10 +182,29 @@ export default {
             }
             this.errors.daily_budget = "";
 
-            console.log(this.compain);
+            // Show spinner
+            this.display = true;
+
             // Update compain
-            this.updateCompain(this.compain, this.compain.id);
-            this.$router.push("/compains");
+            try {
+                const res = await this.updateCompain(
+                    this.compain,
+                    this.compain.id
+                );
+                if (res.status == 200) {
+                    if (res.data.errors) {
+                        this.display = false;
+
+                        console.log(res.data.errors);
+                        this.errors = { ...res.data.errors };
+                        return;
+                    }
+                }
+
+                this.$router.push("/compains");
+            } catch (err) {
+                console.error(err);
+            }
         },
         handleUpload(file, res) {
             if (res.success) {

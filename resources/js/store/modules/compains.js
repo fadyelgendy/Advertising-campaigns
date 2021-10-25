@@ -13,10 +13,13 @@ const actions = {
     },
     async addCompain({ commit }, compain) {
         const response = await axios.post("/api/compain/store", compain);
-        commit("newCompain", response.compain);
+        if (response.data.errors) {
+            return response;
+        }
+        commit("newCompain", response.data.compain);
     },
     async updateCompain({ commit }, compain, id) {
-        const response = await axios.put("/api/compain/update/", compain);
+        return await axios.put("/api/compain/update/", compain);
     }
 };
 const mutations = {
