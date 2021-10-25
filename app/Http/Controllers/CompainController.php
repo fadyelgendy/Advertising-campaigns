@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Compain;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 use App\Http\Services\CompainService;
-use App\Repository\CompainRepository;
+
 
 class CompainController extends Controller
 {
@@ -19,13 +19,11 @@ class CompainController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param Request
      * @return Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $compains = CompainRepository::all();
-        return response()->json(['compains' => $compains]);
+        return $this->compainService->getAllCompains();
     }
 
     /**
@@ -43,34 +41,44 @@ class CompainController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Compain $compain
+     * @param  Request $request
      * @return Response
      */
-    public function show(Compain $compain)
+    public function edit(Request $request)
     {
-        return response()->json(['compain' => $compain]);
+        return $this->compainService->getCompain($request->id);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  Request  $request
-     * @param  Compain  $compain
      * @return Response
      */
-    public function update(Request $request, Compain $compain)
+    public function update(Request $request)
     {
-        return $this->compainService->updateCompain($request, $compain);
+        return $this->compainService->updateCompain($request);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Compain $compain
+     * @param  Request $request
      * @return Response
      */
-    public function destroy(Compain $compain)
+    public function destroy(Request $request)
     {
-        return $this->compainService->deleteCompain($compain);
+        return $this->compainService->deleteCompain($request->id);
+    }
+
+    /**
+     * Handle uploads
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function upload(Request $request): JsonResponse
+    {
+        return $this->compainService->upload($request);
     }
 }

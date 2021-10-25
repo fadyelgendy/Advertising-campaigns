@@ -3,14 +3,39 @@
 namespace App\Http\Services;
 
 use DateTime;
+
 use App\Models\Compain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Repository\CompainRepository;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class CompainService
 {
+    public function getAllCompains()
+    {
+        $results = CompainRepository::all();
+
+        $compains= array();
+        foreach($results as $result) {
+            $compains[] = $this->formatOutput($result);
+        }
+
+        return response()->json(['compains' => $compains]);
+    }
+
+    public function getCompain($id)
+    {
+        $result = Compain::find($id);
+        $compain = $this->formatOutput($result);
+        
+        if ($compain) {
+            return response()->json(['compain' => $compain], 200);
+        }
+
+        return response()->json(['message' => "Not Found!" ], 404);
+    }
 
     /**
      * Create compain service
@@ -32,16 +57,15 @@ class CompainService
         }
 
         $totalBudget = $this->getTotalBudget($request->all());
-        $creatives = $request->hasFile('creative_upload') ? $this->uploadImages($request->allFiles()['creative_upload']) : [];
 
         $newCompain = new Compain();
-        $newCompain->user_id = Auth::id();
+        $newCompain->user_id = 1;
         $newCompain->name = $request->name;
         $newCompain->date_from = $request->date_from;
         $newCompain->date_to = $request->date_to;
         $newCompain->daily_budget = $request->daily_budget;
         $newCompain->total_budget = $totalBudget;
-        $newCompain->creative_upload = json_encode($creatives);
+        $newCompain->creative_upload = json_encode($request->creative_upload);
 
         $newCompain->save();
 
@@ -55,9 +79,17 @@ class CompainService
      * @param Compain $compain
      * @return array
      */
-    public function updateCompain(Request $request, Compain $compain)
+    public function updateCompain(Request $request)
     {
         $newCompain = $request->all();
+        $compain = Compain::find($newCompain["id"]);
+
+        if (!$compain) {
+            return [
+                "success" => 0,
+                "message" => "Not Found!"
+            ];
+        }
 
         // name
         if (isset($newCompain['name'])) {
@@ -70,8 +102,8 @@ class CompainService
         }
 
         // Creative uploads
-        if ($request->hasFile('creative_upload')) {
-            $compain->creative_upload = $this->uploadImages($request->allFiles()['creative_upload']);
+        if (isset($newCompain['creative_upload'])) {
+            $compain->creative_upload = json_encode($newCompain['creative_upload']);
         }
 
         // check for new date from
@@ -109,13 +141,40 @@ class CompainService
      * @param Compain $compain
      * @return Array
      */
-    public function deleteCompain(Compain $compain)
+    public function deleteCompain($id)
     {
+        $compain = Compain::find($id);
+        if (!$compain) {
+            return ['success' =>0, "message" => "Compain deleted successfuly"];
+        }
+
         $creatives = json_decode($compain->creative_upload);
         Storage::delete($creatives);
         $compain->delete();
 
         return ['success' => "Compain deleted successfuly"];
+    }
+
+    public function upload(Request $request)
+    {
+        $file = $request->file('file');
+        $filename = $file->getClientOriginalName();
+        $filename = str_replace(" ", '', $filename);
+        $path = $file->storeAs('uploads', $filename);
+
+        // Failed
+        if (!$path) {
+            return response()->json([
+                'success' => false,
+                'message' => "Upload failed"
+            ], 503);
+        } 
+
+        // success
+        return response()->json([
+            'success' => true,
+            'path' => $path
+        ], 200);
     }
 
     /**
@@ -166,5 +225,24 @@ class CompainService
         }
 
         return $paths;
+    }
+
+    private function formatOutput($data)
+    {
+        $creatives = array_map(function ($img) {
+            return asset("storage/" . $img);
+        }, json_decode($data->creative_upload));
+
+        return [
+            "id" => $data->id,
+            "user_id" => $data->user_id,
+            "name" => $data->name,
+            "date_from" => $data->date_from,
+            "date_to" => $data->date_to,
+            "daily_budget" => number_format($data->daily_budget, 2),
+            "total_budget" => number_format($data->total_budget, 2),
+            "creative_upload" => $creatives,
+            "created_at" => date_format($data->created_at, "Y-m-d")
+        ];
     }
 }

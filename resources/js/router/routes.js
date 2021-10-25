@@ -19,7 +19,7 @@ const routes = [
     },
     {
         name: "edit.compain",
-        path: "/compain/:id/edit",
+        path: "/compain/edit/:id",
         component: Compain,
         meta: { requireAuth: true }
     },

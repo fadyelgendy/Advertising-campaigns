@@ -108,7 +108,7 @@ header ul li > a {
 
 h1,
 h2 {
-    text-align: center;
+    text-transform: capitalize;
 }
 
 div.login__form,

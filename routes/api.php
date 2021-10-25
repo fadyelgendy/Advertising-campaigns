@@ -17,8 +17,9 @@ Route::post('/logout', [AuthController::class, "logout"])->middleware("auth:sanc
 // Private routes
 Route::group(['prefix'=> 'compain'], function() { 
     Route::get("/", [CompainController::class, 'index']);
-    Route::get('/{compain}', [CompainController::class, 'show']);
+    Route::get('/edit/{id}', [CompainController::class, 'edit']);
     Route::post("/store", [CompainController::class, 'store']);
-    Route::post("/{compain}", [CompainController::class, 'update']);
-    Route::delete("/{compain}", [CompainController::class, 'destroy']);
+    Route::put("/update/", [CompainController::class, 'update']);
+    Route::delete("/{id}", [CompainController::class, 'destroy']);
+    Route::post("/upload", [CompainController::class, 'upload']);
 });

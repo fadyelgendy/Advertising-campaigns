@@ -1,6 +1,5 @@
 <template>
     <div class="login__form">
-        <div v-if="showLoading" class="loading">Loading...</div>
         <h1>Login</h1>
         <form action="#" @submit.prevent="handleLogin">
             <div class="form-group">

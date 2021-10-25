@@ -6,7 +6,10 @@ import {
     faPlusSquare,
     faPencilAlt,
     faSpinner,
-    faEye
+    faEye,
+    faArrowLeft,
+    faSignOutAlt,
+    faFlag
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import router from "./router";
@@ -14,7 +17,15 @@ import store from "./store";
 import App from "./App.vue";
 
 // Font Awesome
-library.add(faPlusSquare, faPencilAlt, faSpinner, faEye);
+library.add(
+    faFlag,
+    faSignOutAlt,
+    faArrowLeft,
+    faPlusSquare,
+    faPencilAlt,
+    faSpinner,
+    faEye
+);
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
