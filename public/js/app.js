@@ -13392,8 +13392,7 @@ var csrf = document.getElementsByName("csrf-token")[0].getAttribute("content");
           "X-CSRF-TOKEN": csrf
         }
       },
-      processing: false,
-      base: "http://compains.test/storage/"
+      processing: false
     };
   },
   methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)(["updateCompain"])), {}, {
@@ -35513,7 +35512,7 @@ var render = function() {
         _vm._l(_vm.compain.creative_upload, function(src, index) {
           return _c("img", {
             key: index,
-            attrs: { src: _vm.base + src, alt: _vm.compain.name }
+            attrs: { src: src, alt: _vm.compain.name }
           })
         }),
         0

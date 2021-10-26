@@ -73,7 +73,7 @@
             <img
                 v-for="(src, index) in compain.creative_upload"
                 :key="index"
-                :src="base + src"
+                :src="src"
                 :alt="compain.name"
             />
         </div>
@@ -116,8 +116,7 @@ export default {
                     "X-CSRF-TOKEN": csrf
                 }
             },
-            processing: false,
-            base: "http://compains.test/storage/"
+            processing: false
         };
     },
     methods: {

@@ -7,9 +7,27 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
+use Carbon\Carbon;
 
 class CompainTest extends TestCase
 {
+    public function test_create_campaign_without_logging()
+    {
+        $response = $this->postJson('/api/compain/store', [
+            "user_id" => 1,
+            'name'=> "compain one",
+            "date_from" => Carbon::now(),
+            "date_to" => Carbon::now()->addDays(5),
+            "daily_budget" => 150.00,
+            "creative_upload" => json_encode([
+                "image1.jpg"
+            ])
+        ]);
+
+        $response->assertStatus(401)
+        ->assertJson(['message' => 'Unauthenticated.']);
+    }
+
     /**
      * Test create compain
      *
@@ -17,19 +35,18 @@ class CompainTest extends TestCase
      */
     public function test_create_compain()
     {
-        $response = $this->postJson('/api/compain/store', [
+        $res = $this->postJson('/api/compain/store', [
             "user_id" => 1,
             'name'=> "compain one",
-            "date_from" => "2021-10-22",
-            "date_to" => "2021-10-27",
+            "date_from" => Carbon::now(),
+            "date_to" => Carbon::now()->addDays(5),
             "daily_budget" => 150.00,
-            "creative_upload" => [
+            "creative_upload" => json_encode([
                 "image1.jpg"
-            ]
+            ])
         ]);
 
-        $response->assertStatus(201)
-        ->assertCreated();
+        $res->assertStatus(201);
     }
 
     /**
