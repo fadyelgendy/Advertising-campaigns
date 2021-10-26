@@ -18,7 +18,7 @@ class CompainService
      */
     public function getAllCompains()
     {
-        $results = Compain::where('user_id', Auth::id())->get();
+        $results = Compain::where('user_id', Auth::id())->orderBy('created_at','desc')->get();
 
         $compains = array();
         foreach ($results as $result) {
