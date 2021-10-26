@@ -3,7 +3,6 @@
 namespace App\Http\Services;
 
 use DateTime;
-
 use App\Models\Compain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,8 +20,8 @@ class CompainService
     {
         $results = Compain::where('user_id', Auth::id())->get();
 
-        $compains= array();
-        foreach($results as $result) {
+        $compains = array();
+        foreach ($results as $result) {
             $compains[] = $this->formatOutput($result);
         }
 
@@ -33,7 +32,7 @@ class CompainService
     {
         $result = Compain::find($id);
         $compain = $this->formatOutput($result);
-        
+
         if ($compain) {
             return response()->json(['compain' => $compain], 200);
         }
@@ -149,7 +148,7 @@ class CompainService
     {
         $compain = Compain::find($id);
         if (!$compain) {
-            return ['success' =>0, "message" => "Compain deleted successfuly"];
+            return ['success' => 0, "message" => "Compain deleted successfuly"];
         }
 
         $creatives = json_decode($compain->creative_upload);
@@ -178,7 +177,7 @@ class CompainService
                 'success' => false,
                 'message' => "Upload failed"
             ], 503);
-        } 
+        }
 
         // success
         return response()->json([

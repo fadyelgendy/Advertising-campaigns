@@ -41,12 +41,11 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            ]
-        );
+            ]);
 
         return [
             'success' => true,
-            'message' => "User Reqistered successfully" 
+            'message' => "User Reqistered successfully"
         ];
     }
 

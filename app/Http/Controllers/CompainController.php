@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Services\CompainService;
 
-
 class CompainController extends Controller
 {
     protected $compainService;
