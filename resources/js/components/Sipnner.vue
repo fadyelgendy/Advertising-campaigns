@@ -27,6 +27,7 @@ export default {
     width: 40px;
     height: 40px;
     animation: sk-chase 2.5s infinite linear both;
+    z-index: 1000;
 }
 
 .sk-chase-dot {

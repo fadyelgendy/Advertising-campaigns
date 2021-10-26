@@ -16,9 +16,10 @@ export default {
 <style scoped>
 .modal {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     align-content: center;
-    align-items: center;
+    align-items: flex-start;
     position: fixed;
     top: 20%;
     left: 10%;
@@ -27,7 +28,8 @@ export default {
     z-index: 1000;
     background: #fff;
     margin: auto;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 img {
@@ -36,5 +38,6 @@ img {
     max-height: 150px;
     width: 150px;
     max-width: 150px;
+    margin: 10px;
 }
 </style>

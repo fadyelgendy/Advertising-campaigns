@@ -23,15 +23,15 @@ class CompainFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => 1,
+            'user_id' => rand(1, 10),
             'name' => $this->faker->name(),
             'date_from' => Carbon::now(),
             'date_to' => Carbon::now()->addDays(5),
-            'daily_budget' => 150.00,
-            'total_budget' => 750.00,
+            'daily_budget' => rand(150, 5000),
+            'total_budget' => rand(750, 25000),
             'creative_upload' => json_encode([
-                'image_1.jpg',
-                'imge_2.jpg',
+                'uploads/placeholder.jpg',
+                'uploads/placeholder.jpg',
             ])
         ];
     }

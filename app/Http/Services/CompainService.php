@@ -18,7 +18,7 @@ class CompainService
      */
     public function getAllCompains()
     {
-        $results = Compain::where('user_id', Auth::id())->orderBy('created_at','desc')->get();
+        $results = Compain::where('user_id', Auth::id())->orderBy('created_at', 'desc')->get();
 
         $compains = array();
         foreach ($results as $result) {
@@ -197,7 +197,7 @@ class CompainService
         $to = new DateTime($compain['date_to']);
         $from = new DateTime($compain['date_from']);
         $diff = $from->diff($to);
-        return $diff->days * $compain['daily_budget'];
+        return $diff->days * floatval($compain['daily_budget']);
     }
 
 
@@ -217,23 +217,6 @@ class CompainService
         }
 
         return [ 'success' => true];
-    }
-
-    /**
-     * Uploads creative images
-     *
-     * @param Array $files
-     * @return Array $paths
-     */
-    private function uploadImages(array $files)
-    {
-        $paths = array();
-
-        foreach ($files as $file) {
-            array_push($paths, Storage::putFile('public/creatives', $file));
-        }
-
-        return $paths;
     }
 
     /**
